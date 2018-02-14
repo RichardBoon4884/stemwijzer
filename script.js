@@ -83,7 +83,7 @@ function compareParties() {
             parties.push({name: matchedParty, count: 1});
 
         } else {
-            parties.count++
+            partyMatch.count++
         }
     });
 
