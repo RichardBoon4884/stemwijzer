@@ -12,7 +12,6 @@ var subjects =
 }
 */
 {
-	id: 1,
 	title: "Bindend referendum",
 	statement: "Er moet een bindend referendum komen, waarmee burgers door het parlement aangenomen wetten kunnen tegenhouden.",
 	parties: [
@@ -41,7 +40,6 @@ var subjects =
 	]
 },
 {
-	id: 2,
 	title: "Maatschappelijke dienstplicht",
 	statement: "Er moet een maatschappelijke dienstplicht voor jongeren komen. Zij kunnen dan dienen in het leger, bij de politie of in de zorg.",	
 	parties: [
@@ -70,7 +68,6 @@ var subjects =
 	]
 },
 {
-	id: 3,
 	title: "Anoniem solliciteren",
 	statement: "Om discriminatie op basis van de naam te voorkomen, moet anoniem solliciteren bij de overheid en bij openbare instellingen de regel worden.",
 	parties: [
@@ -99,7 +96,6 @@ var subjects =
 	] 
 },
 {
-	id: 4,
 	title: "Groepsbelediging",
 	statement: "Belediging van groepen op grond van ras, godsdienst of geaardheid moet niet langer strafbaar zijn.",
 	parties: [
@@ -158,7 +154,6 @@ var subjects =
 	]
 },
 {
-	id: 6,
 	title: "Vervroegde vrijlating",
 	statement: "De vervroegde vrijlating onder voorwaarden van gevangenen moet stoppen. Zij moeten hun straf helemaal uitzitten.",
 	parties: [
@@ -187,7 +182,6 @@ var subjects =
 	]
 },
 {
-	id: 7,
 	title: "Vennootschapsbelasting",
 	statement: "De belasting over de winst van ondernemingen (vennootschapsbelasting) moet omlaag.",
 	parties: [

@@ -15,7 +15,7 @@
     headScript.parentNode.insertBefore(scriptTemplate, headScript.nextSibling);
 })(); // Initializing
 
-
+let partiesResult = [];
 
 function ask(subjects, i = 0) {
     let main = document.getElementsByTagName('main')[0];
@@ -23,24 +23,25 @@ function ask(subjects, i = 0) {
     if (subjects.length === i) {
         main.innerHTML = "";
 		compare();
-		return;
+		return subjects;
 	}
 
 	let subject = subjects[i];
 
 	main.innerHTML = templates.questions(subject.title, subject.statement);
-	document.getElementById("pro").onclick = function () {
+	document.getElementById("pro").onclick = () => {
 		subject.anwser="pro";
         ask(subjects, ++i)
 	};
-	document.getElementById("ambivalent").onclick = function () {
+	document.getElementById("ambivalent").onclick = () => {
         subject.anwser="ambivalent";
         ask(subjects, ++i)
 	};
-	document.getElementById("contra").onclick = function () {
+	document.getElementById("contra").onclick = () => {
         subject.anwser="contra";
         ask(subjects, ++i)
-	};document.getElementById("noOpinion").onclick = function () {
+	};
+	document.getElementById("noOpinion").onclick = () => {
         subject.anwser=null;
         ask(subjects, ++i)
     };
@@ -48,24 +49,27 @@ function ask(subjects, i = 0) {
 
 function compare() {
 	let matchedParties = [];
-	let parties = [];
 
-    subjects.forEach(function(subject) {
+    subjects.forEach((subject) => {
         subject.parties.forEach(function(party) {
 			if (subject.anwser === party.position) {
-                matchedParties.push(party.id);
+                matchedParties.push(party.name);
 			}
         });
     });
 
-    console.log(matchedParties);
-
-    
+    matchedParties.forEach((matchedParty) => {
+        let partyMatch = partiesResult.find(party => party.name === matchedParty);
+        if (partyMatch === undefined) {
+            partiesResult.push({name: matchedParty, count: 1});
+        } else {
+            partyMatch.count++
+        }
+    });
 }
 
-window.onload = function() {
+window.onload = () => {
     let main = document.getElementsByTagName('main')[0];
 
-	console.log(subjects);
 	ask(subjects);
 };
