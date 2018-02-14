@@ -17,12 +17,20 @@
 
 let partiesResult = [];
 
+function compare(a,b) {
+    if (a.count > b.count)
+        return -1;
+    if (a.count < b.count)
+        return 1;
+    return 0;
+}
+
 function ask(subjects, i = 0) {
     let main = document.getElementsByTagName('main')[0];
 
     if (subjects.length === i) {
         main.innerHTML = "";
-		compare();
+        compareParties();
 		return subjects;
 	}
 
@@ -47,8 +55,9 @@ function ask(subjects, i = 0) {
     };
 }
 
-function compare() {
+function compareParties() {
 	let matchedParties = [];
+    let main = document.getElementsByTagName('main')[0];
 
     subjects.forEach((subject) => {
         subject.parties.forEach(function(party) {
@@ -66,6 +75,9 @@ function compare() {
             partyMatch.count++
         }
     });
+
+    partiesResult.sort(compare);
+    main.innerHTML = templates.result(partiesResult, subjects.length);
 }
 
 window.onload = () => {
