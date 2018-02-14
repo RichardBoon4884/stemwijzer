@@ -15,14 +15,18 @@
     headScript.parentNode.insertBefore(scriptTemplate, headScript.nextSibling);
 })(); // Initializing
 
-let partiesResult = [];
-
+// Compare if the count of party A is bigger then B
 function compare(a,b) {
     if (a.count > b.count)
         return -1;
     if (a.count < b.count)
         return 1;
     return 0;
+}
+
+// Filter for big parties
+function filter(a) {
+    return a.size >= 15;
 }
 
 function ask(subjects, i = 0) {
@@ -37,6 +41,10 @@ function ask(subjects, i = 0) {
 	let subject = subjects[i];
 
 	main.innerHTML = templates.questions(subject.title, subject.statement);
+	if (i === 0) {document.getElementById("back").disabled = true}
+    document.getElementById("back").onclick = () => {
+        ask(subjects, --i)
+    };
 	document.getElementById("pro").onclick = () => {
 		subject.anwser="pro";
         ask(subjects, ++i)
@@ -67,17 +75,35 @@ function compareParties() {
         });
     });
 
+    parties.forEach((party) => {party.count = 0});
+
     matchedParties.forEach((matchedParty) => {
-        let partyMatch = partiesResult.find(party => party.name === matchedParty);
+        let partyMatch = parties.find(party => party.name === matchedParty);
         if (partyMatch === undefined) {
-            partiesResult.push({name: matchedParty, count: 1});
+            parties.push({name: matchedParty, count: 1});
+
         } else {
-            partyMatch.count++
+            parties.count++
         }
     });
 
-    partiesResult.sort(compare);
-    main.innerHTML = templates.result(partiesResult, subjects.length);
+    parties.sort(compare);
+    render(false);
+}
+
+function render(bigPartiesOnly) {
+    let main = document.getElementsByTagName('main')[0];
+
+    if (bigPartiesOnly === true) {
+        main.innerHTML = templates.result(parties.filter(filter), subjects.length);
+        document.getElementById("bigPartiesFilter").innerHTML = "Toon alle partijen";
+    } else {
+        main.innerHTML = templates.result(parties, subjects.length)
+    }
+
+    document.getElementById("bigPartiesFilter").onclick = () => {
+        render((!bigPartiesOnly));
+    };
 }
 
 window.onload = () => {
